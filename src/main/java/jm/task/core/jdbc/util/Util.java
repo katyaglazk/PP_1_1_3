@@ -11,11 +11,13 @@ public class Util {
     private static final String DB_PASSWORD = "root";
 
     public static Connection getConnection() {
-        try (Connection connection = DriverManager.getConnection(DB_URL,DB_USERNAME,DB_PASSWORD)){
+        Connection connection = null;
+        try {
             Class.forName(DB_DRIVER);
-            return connection;
-        } catch(ClassNotFoundException | SQLException e){
+            connection = DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        } catch (ClassNotFoundException | SQLException e) {
             throw new RuntimeException(e);
         }
+        return connection;
     }
 }
